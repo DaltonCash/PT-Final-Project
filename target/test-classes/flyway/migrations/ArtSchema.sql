@@ -1,0 +1,2 @@
+INSERT INTO art (artist_name, art_period, art_medium, creation_year, art_stock, title, price) VALUES('Alexandre Cabanel', 'Academic art/Academicism', 'Oil on Canvas', 1874, 1, 'The Fallen Angel', 10.00);
+INSERT INTO art (artist_name, art_period, art_medium, creation_year, art_stock, title, price) VALUES('Grant Wood', 'Modernism', 'Oil on Beaver Wood', 1930, 1, 'American Gothic', 10.00);
