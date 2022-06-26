@@ -1,0 +1,653 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Art Sales Service",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080",
+      "description": "Local server."
+    }
+  ],
+  "paths": {
+    "/message": {
+      "put": {
+        "tags": [
+          "default-art-message-controller"
+        ],
+        "summary": "Change an order's message",
+        "description": "Returns the order along with the updated message.",
+        "operationId": "changeMessage",
+        "parameters": [
+          {
+            "name": "order_id",
+            "in": "query",
+            "description": "ID of Order (i.e., '1')",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "message",
+            "in": "query",
+            "description": "New message for order (i.e., 'New paintings for Jane's living room.')",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The order's message has been successfully updated!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Order"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The request parameters are invalid",
+            "content": {
+              "application/json": {}
+            }
+          },
+          "404": {
+            "description": "No order was found with the supplied order_id",
+            "content": {
+              "application/json": {}
+            }
+          },
+          "500": {
+            "description": "An unplanned error occurred.",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/orders": {
+      "post": {
+        "tags": [
+          "default-art-order-controller"
+        ],
+        "summary": "Create an order for art",
+        "description": "Returns the order",
+        "operationId": "createOrder",
+        "parameters": [
+          {
+            "name": "art_id",
+            "in": "query",
+            "description": "ID of desired Art (i.e., '1')",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "user_id",
+            "in": "query",
+            "description": "Your user id (i.e., '1')",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "The created art order is returned",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Order"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The request parameters are invalid",
+            "content": {
+              "application/json": {}
+            }
+          },
+          "404": {
+            "description": "no art was found with the input criteria or the art may be out of stock",
+            "content": {
+              "application/json": {}
+            }
+          },
+          "500": {
+            "description": "An unplanned error occurred.",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/addtoorder": {
+      "post": {
+        "tags": [
+          "default-art-add-to-order-controller"
+        ],
+        "summary": "Add art to order",
+        "description": "Returns the order with added art details",
+        "operationId": "addToOrder",
+        "parameters": [
+          {
+            "name": "art_id",
+            "in": "query",
+            "description": "ID of desired Art (i.e., '1')",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "user_id",
+            "in": "query",
+            "description": "Your user id (i.e., '1')",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "order_id",
+            "in": "query",
+            "description": "Your order id (i.e., '1')",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "The updated art order is returned",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Order"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The request parameters are invalid",
+            "content": {
+              "application/json": {}
+            }
+          },
+          "404": {
+            "description": "no art was found with the input criteria or the art may be out of stock",
+            "content": {
+              "application/json": {}
+            }
+          },
+          "500": {
+            "description": "An unplanned error occurred.",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/vieworder": {
+      "get": {
+        "tags": [
+          "default-art-view-order-controller"
+        ],
+        "summary": "Returns Art",
+        "description": "Returns all art included in order",
+        "operationId": "fetchArtFromOrder",
+        "parameters": [
+          {
+            "name": "order_id",
+            "in": "query",
+            "description": "the id associated with the order. (i.e., '1')",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of Art is returned",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Art"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The request parameters are invalid",
+            "content": {
+              "application/json": {}
+            }
+          },
+          "404": {
+            "description": "No art was found with the input criteria",
+            "content": {
+              "application/json": {}
+            }
+          },
+          "500": {
+            "description": "An unplanned error occurred",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/user": {
+      "get": {
+        "tags": [
+          "default-art-user-controller"
+        ],
+        "summary": "Returns user's info",
+        "description": "Returns user's info if a valid username and password combination is supplied.",
+        "operationId": "fetchUserInfo",
+        "parameters": [
+          {
+            "name": "user_name",
+            "in": "query",
+            "description": "Username associated with your account. (i.e., 'MockUser')",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "password",
+            "in": "query",
+            "description": "Password associated with your account. (i.e., 'password123')",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A User has supplied valid credentials and user's info is returned",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Users"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "The user's credentials are invalid",
+            "content": {
+              "application/json": {}
+            }
+          },
+          "500": {
+            "description": "An unplanned error occurred",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/title": {
+      "get": {
+        "tags": [
+          "default-art-title-controller"
+        ],
+        "summary": "Returns Art",
+        "description": "Returns all art of a supplied title",
+        "operationId": "fetchArtByTitle",
+        "parameters": [
+          {
+            "name": "title",
+            "in": "query",
+            "description": "The Art title (i.e., 'Mona Lisa')",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of Art is returned",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Art"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The request parameters are invalid",
+            "content": {
+              "application/json": {}
+            }
+          },
+          "404": {
+            "description": "No art was found with the input criteria",
+            "content": {
+              "application/json": {}
+            }
+          },
+          "500": {
+            "description": "An unplanned error occurred",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/period": {
+      "get": {
+        "tags": [
+          "default-art-period-controller"
+        ],
+        "summary": "Returns Art",
+        "description": "Returns all art of a supplied period",
+        "operationId": "fetchArtByPeriod",
+        "parameters": [
+          {
+            "name": "period",
+            "in": "query",
+            "description": "The Art period (i.e., 'Surrealism')",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of Art is returned",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Art"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The request parameters are invalid",
+            "content": {
+              "application/json": {}
+            }
+          },
+          "404": {
+            "description": "No art was found with the input criteria",
+            "content": {
+              "application/json": {}
+            }
+          },
+          "500": {
+            "description": "An unplanned error occurred",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/browse": {
+      "get": {
+        "tags": [
+          "default-art-browse-controller"
+        ],
+        "summary": "Returns Art",
+        "description": "Returns all art in database",
+        "operationId": "fetchArt",
+        "responses": {
+          "200": {
+            "description": "A list of all Art is returned",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Art"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "An unplanned error occurred",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/artist": {
+      "get": {
+        "tags": [
+          "default-art-artist-controller"
+        ],
+        "summary": "Returns Art",
+        "description": "Returns all art of a supplied Artist",
+        "operationId": "fetchArtByArtist",
+        "parameters": [
+          {
+            "name": "artist",
+            "in": "query",
+            "description": "The Art artist (i.e., 'Alexandre Cabanel')",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of Art is returned",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Art"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The request parameters are invalid",
+            "content": {
+              "application/json": {}
+            }
+          },
+          "404": {
+            "description": "No art was found with the input criteria",
+            "content": {
+              "application/json": {}
+            }
+          },
+          "500": {
+            "description": "An unplanned error occurred",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/delete": {
+      "delete": {
+        "tags": [
+          "default-art-delete-controller"
+        ],
+        "summary": "Delete an Order",
+        "description": "Deletes the order of a specified order_id",
+        "operationId": "deleteOrder",
+        "parameters": [
+          {
+            "name": "order_id",
+            "in": "query",
+            "description": "ID of Order (i.e., '1')",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Order deleted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Order"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Supplied order_id does not exist.",
+            "content": {
+              "application/json": {}
+            }
+          },
+          "500": {
+            "description": "An unplanned error occurred.",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Order": {
+        "type": "object",
+        "properties": {
+          "order_id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "user_id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "price": {
+            "type": "number"
+          },
+          "order_date": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "Art": {
+        "type": "object",
+        "properties": {
+          "art_id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "title": {
+            "type": "string"
+          },
+          "artist_name": {
+            "type": "string"
+          },
+          "art_period": {
+            "type": "string"
+          },
+          "art_medium": {
+            "type": "string"
+          },
+          "creation_year": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "art_stock": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "price": {
+            "type": "number"
+          }
+        }
+      },
+      "Users": {
+        "type": "object",
+        "properties": {
+          "user_id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "user_name": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "first_name": {
+            "type": "string"
+          },
+          "last_name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
