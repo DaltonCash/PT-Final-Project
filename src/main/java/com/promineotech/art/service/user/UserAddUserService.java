@@ -6,8 +6,6 @@ public interface UserAddUserService {
 
   User addUser(String user_name, String password, String first_name, String last_name, String email);
 
-  boolean checkUserName(String user_name);
-
-  boolean checkEmail(String email);
+  boolean checkEmailAndUsername(String email, String user_name);
 
 }

@@ -36,7 +36,7 @@ public class DefaultArtTitleDao implements ArtTitleDao {
 
     return jdbcTemplate.query(sql, params,new RowMapper<Art>(){
 
-      @Override
+      
       public Art mapRow(ResultSet rs, int rowNum) throws SQLException {
 
         return Art.builder()
