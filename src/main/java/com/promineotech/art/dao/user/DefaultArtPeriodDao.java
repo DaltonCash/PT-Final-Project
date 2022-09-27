@@ -19,26 +19,26 @@ public class DefaultArtPeriodDao implements ArtPeriodDao {
 
   @Autowired
   private NamedParameterJdbcTemplate jdbcTemplate;
-  
+
   @Override
   public List<Art> fetchArtByPeriod(String period) {
     period = "%" + period + "%";
     log.info("DAO: period = {}", period);
-    
-    String sql = "" 
+
+    String sql = ""
         + "SELECT * "
         + "FROM art "
         + "WHERE art_period "
         + "LIKE :period";
-    
+
     Map<String, Object> params = new HashMap<>();
     params.put("period", period);
-   
+
     return jdbcTemplate.query(sql, params,new RowMapper<Art>(){
 
       @Override
       public Art mapRow(ResultSet rs, int rowNum) throws SQLException {
-        
+
         return Art.builder()
             .art_id(rs.getInt("art_id"))
             .art_medium(rs.getString("art_medium"))

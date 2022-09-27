@@ -10,13 +10,14 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @Slf4j
 public class DefaultArtTitleService implements ArtTitleService {
-  
+
   @Autowired
   private ArtTitleDao artTitleDao;
-  
+
+  @Override
   public List<Art> fetchArtByTitle(String title){
     log.info("The fetchArtByTitle method was called with argument: (title = {})", title);
-    
+
     return artTitleDao.fetchArtByTitle(title);
   }
 }

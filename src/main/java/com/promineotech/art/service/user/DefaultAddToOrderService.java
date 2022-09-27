@@ -15,25 +15,26 @@ public class DefaultAddToOrderService implements ArtAddToOrderService {
 
   @Autowired
   private ArtAddToOrderDao artAddToOrderDao;
-  
+
   @Override
   public boolean checkStock(int art_id) {
     return artAddToOrderDao.fetchStock(art_id).getArt_stock() > 0;
   }
-  
+
+  @Override
   @Transactional
   public Order addToOrder(int art_id, int user_id, int order_id) {
     log.info("user_id = {} has requested to add art art_id = {} to order order_id = {}", user_id, art_id, order_id);
-    
+
     Art art = artAddToOrderDao.fetchPrice(art_id);
     BigDecimal price = art.getPrice();
-    
+
     artAddToOrderDao.reduceStock(art_id);
-    
+
     Order order = artAddToOrderDao.fetchOrder(order_id);
-    
+
     return artAddToOrderDao.addToOrder(art_id, user_id, price, order_id, order);
-   
-  } 
+
+  }
 }
 

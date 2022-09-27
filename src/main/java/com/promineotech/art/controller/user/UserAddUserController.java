@@ -20,43 +20,43 @@ import io.swagger.v3.oas.annotations.servers.Server;
 @OpenAPIDefinition(info = @Info(title = "Art Sales Service"), servers = {
     @Server(url = "http://localhost:8080", description = "Local server.")})
 public interface UserAddUserController {
-  
-  
+
+
   @Operation(
       summary = "Create User",
       description = "Create a user to add orders",
       responses = {
-          @ApiResponse(responseCode = "201", 
-              description = "The new user profile is returned", 
-              content = @Content(mediaType = "application/json", 
+          @ApiResponse(responseCode = "201",
+              description = "The new user profile is returned",
+              content = @Content(mediaType = "application/json",
               schema = @Schema(implementation = Order.class))),
-          @ApiResponse(responseCode = "400", 
-            description = "The request parameters are invalid", 
+          @ApiResponse(responseCode = "400",
+            description = "The request parameters are invalid",
             content = @Content(mediaType = "application/json")),
-          @ApiResponse(responseCode = "404", 
-            description = "A user with the same name or email is already in use.", 
+          @ApiResponse(responseCode = "404",
+            description = "A user with the same name or email is already in use.",
             content = @Content(mediaType = "application/json")),
-          @ApiResponse(responseCode = "500", 
-            description = "An unplanned error occurred.", 
+          @ApiResponse(responseCode = "500",
+            description = "An unplanned error occurred.",
             content = @Content(mediaType = "application/json"))
       },
       parameters = {
           @Parameter(name = "user_name",
-            required = true, 
+            required = true,
             description = "desired username (i.e., 'coolestguy')"),
           @Parameter(name = "password",
-          required = true, 
+          required = true,
           description = "desired password (i.e., '123password123')"),
           @Parameter(name = "first_name",
-          required = true, 
+          required = true,
           description = "your first name (i.e., 'John')"),
           @Parameter(name = "last_name",
-          required = true, 
+          required = true,
           description = "your last name (i.e., 'Smith')"),
           @Parameter(name = "email",
-          required = true, 
+          required = true,
           description = "email to associate with account (i.e., 'yourname@email.com')"),
-          
+
       }
   )
   @PostMapping

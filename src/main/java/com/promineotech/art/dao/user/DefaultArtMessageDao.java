@@ -18,20 +18,20 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 @Slf4j
 public class DefaultArtMessageDao implements ArtMessageDao{
-  
+
   @Autowired
   private NamedParameterJdbcTemplate jdbcTemplate;
 
   @Override
   public Order changeMessage(int order_id, String message) {
     log.info("Message change on order order_id = {} has been requested with message: {}",order_id, message);
-    
+
     SqlParams params = insertSql(order_id, message);
     Order order = fetchOrder(order_id);
-    
+
     KeyHolder keyHolder = new GeneratedKeyHolder();
     jdbcTemplate.update(params.sql, params.source, keyHolder);
-    
+
     return Order.builder()
         .order_id(order_id)
         .user_id(order.getUser_id())
@@ -43,36 +43,36 @@ public class DefaultArtMessageDao implements ArtMessageDao{
 
   private SqlParams insertSql(int order_id, String message) {
     SqlParams params = new SqlParams();
-    
-    
+
+
     params.sql = ""
         + "UPDATE orders "
         + "SET message = :message "
         + "WHERE order_id = :order_id;";
- 
-    
+
+
     params.source.addValue("order_id", order_id);
     params.source.addValue("message", message);
-    
+
     return params;
   }
-  
+
   @Override
   public Order fetchOrder(int order_id) {
     log.info("DAO: order_id = {}", order_id);
-    
-    String sql = "" 
+
+    String sql = ""
         + "SELECT * "
         + "FROM orders "
         + "WHERE order_id = :order_id";
-    
+
     Map<String, Object> params = new HashMap<>();
     params.put("order_id", order_id);
-   
-    
+
+
     return jdbcTemplate.query(sql, params, new StockResultSetExtractor());
   }
-  
+
   class StockResultSetExtractor implements ResultSetExtractor<Order> {
     @Override
     public Order extractData(ResultSet rs) throws SQLException {
@@ -85,7 +85,7 @@ public class DefaultArtMessageDao implements ArtMessageDao{
           .build();
     }
   }
-  
+
   class SqlParams {
     String sql;
     MapSqlParameterSource source = new MapSqlParameterSource();

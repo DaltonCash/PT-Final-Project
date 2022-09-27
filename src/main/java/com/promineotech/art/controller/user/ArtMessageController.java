@@ -20,38 +20,38 @@ import io.swagger.v3.oas.annotations.servers.Server;
     @Server(url = "http://localhost:8080", description = "Local server.")})
 
 public interface ArtMessageController {
-  
+
   @Operation(
       summary = "Change an order's message",
       description = "Returns the order along with the updated message.",
       responses = {
-          @ApiResponse(responseCode = "200", 
-              description = "The order's message has been successfully updated!", 
-              content = @Content(mediaType = "application/json", 
+          @ApiResponse(responseCode = "200",
+              description = "The order's message has been successfully updated!",
+              content = @Content(mediaType = "application/json",
               schema = @Schema(implementation = Order.class))),
-          @ApiResponse(responseCode = "400", 
-            description = "The request parameters are invalid", 
+          @ApiResponse(responseCode = "400",
+            description = "The request parameters are invalid",
             content = @Content(mediaType = "application/json")),
-          @ApiResponse(responseCode = "404", 
-            description = "No order was found with the supplied order_id", 
+          @ApiResponse(responseCode = "404",
+            description = "No order was found with the supplied order_id",
             content = @Content(mediaType = "application/json")),
-          @ApiResponse(responseCode = "500", 
-            description = "An unplanned error occurred.", 
+          @ApiResponse(responseCode = "500",
+            description = "An unplanned error occurred.",
             content = @Content(mediaType = "application/json"))
       },
       parameters = {
           @Parameter(name = "order_id",
-            required = true, 
+            required = true,
             description = "ID of Order (i.e., '1')"),
           @Parameter(name = "message",
-          required = true, 
+          required = true,
           description = "New message for order (i.e., 'New paintings for Jane's living room.')"),
-          
+
       }
   )
   @PutMapping
   @ResponseStatus(code = HttpStatus.OK)
-  Order changeMessage( 
+  Order changeMessage(
       @RequestParam int order_id,
       @RequestParam String message);
 }

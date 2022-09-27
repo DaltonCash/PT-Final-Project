@@ -6,5 +6,5 @@ import com.promineotech.art.entity.Art;
 public interface ArtArtistDao {
 
   List<Art> fetchArtByArtist(String artist);
-  
+
 }

@@ -24,14 +24,14 @@ import com.promineotech.art.entity.Art;
 @ActiveProfiles("test")
 @Sql(scripts = {
     "classpath:flyway/migrations/ArtSalesSchema.sql",
-    "classpath:flyway/migrations/ArtSchema.sql"}, 
+    "classpath:flyway/migrations/ArtSchema.sql"},
     config = @SqlConfig(encoding = "utf-8"))
 
 class FetchArtTest {
-  
+
   @Autowired
   private TestRestTemplate restTemplate;
-  
+
   @LocalServerPort
   private int serverPort;
 
@@ -41,17 +41,17 @@ class FetchArtTest {
     String title = "Th";
     String uri = String.format("http://localhost:%d/art?title=%s", serverPort, title);
 
-    ResponseEntity<List<Art>> response = 
+    ResponseEntity<List<Art>> response =
         restTemplate.exchange(uri, HttpMethod.GET, null, new ParameterizedTypeReference<List<Art>>() {});
     assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-    
+
     List<Art> expected = artExpected();
     assertThat(response.getBody()).isEqualTo(expected);
   }
 
   List<Art> artExpected(){
     List<Art> list = new LinkedList<>();
-    
+
     list.add(Art.builder()
         .art_id(1)
         .artist_name("Alexandre Cabanel")
@@ -62,7 +62,7 @@ class FetchArtTest {
         .price(new BigDecimal("10"))
         .title("The Fallen Angel")
         .build());
-    
+
     return list;
   }
 }

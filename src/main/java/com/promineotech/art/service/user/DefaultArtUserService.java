@@ -13,11 +13,12 @@ public class DefaultArtUserService implements ArtUserService{
 
   @Autowired
   private ArtUserDao artUserDao;
-  
+
+  @Override
   @Transactional
   public User fetchUserInfo(String user_name, String password) {
     log.info("The fetchUserInfo method was called with arguments: (user_name = {}, password = {})", user_name, password);
-  
+
     return artUserDao.fetchUserInfo(user_name, password);
   }
 }

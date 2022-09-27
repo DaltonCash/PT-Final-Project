@@ -25,20 +25,20 @@ import com.promineotech.art.entity.Art;
 @ActiveProfiles("test")
 @Sql(scripts = {
     "classpath:flyway/migrations/ArtSalesSchema.sql",
-    "classpath:flyway/migrations/ArtSchema.sql"}, 
+    "classpath:flyway/migrations/ArtSchema.sql"},
     config = @SqlConfig(encoding = "utf-8"))
 
 public class FetchArtByTitleTest {
-  
+
   @LocalServerPort
   private int serverPort;
-  
+
   @Autowired
   private TestRestTemplate restTemplate;
-  
-  @Test 
+
+  @Test
   void testThatArtIsReturnedWhenNameIsSupplied() {
-    
+
     String body = createArtBody();
     String uri = String.format("http://localhost:%d/art", serverPort);
     HttpHeaders headers = new HttpHeaders();
@@ -47,7 +47,7 @@ public class FetchArtByTitleTest {
     ResponseEntity<Art> response = restTemplate.exchange(uri,HttpMethod.POST, bodyEntity, Art.class);
 
     assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
-    
+
     assertThat(response.getBody()).isNotNull();
 
     Art art = response.getBody();

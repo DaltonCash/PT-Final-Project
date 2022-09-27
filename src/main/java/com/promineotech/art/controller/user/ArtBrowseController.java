@@ -19,17 +19,17 @@ import io.swagger.v3.oas.annotations.servers.Server;
     @Server(url = "http://localhost:8080", description = "Local server.")})
 
 public interface ArtBrowseController {
-  
+
   @Operation(
       summary = "Returns Art",
       description = "Returns all art in database",
       responses = {
-          @ApiResponse(responseCode = "200", 
-              description = "A list of all Art is returned", 
-              content = @Content(mediaType = "application/json", 
+          @ApiResponse(responseCode = "200",
+              description = "A list of all Art is returned",
+              content = @Content(mediaType = "application/json",
               schema = @Schema(implementation = Art.class))),
-          @ApiResponse(responseCode = "500", 
-            description = "An unplanned error occurred", 
+          @ApiResponse(responseCode = "500",
+            description = "An unplanned error occurred",
             content = @Content(mediaType = "application/json"))
       }
   )

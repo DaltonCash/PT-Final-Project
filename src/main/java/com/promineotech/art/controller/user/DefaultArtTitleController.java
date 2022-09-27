@@ -13,7 +13,7 @@ public class DefaultArtTitleController implements ArtTitleController {
 
   @Autowired
   private ArtTitleService artTitleService;
-  
+
   @Override
   public List<Art> fetchArtByTitle(String title) {
     log.info("Art title = {}", title);

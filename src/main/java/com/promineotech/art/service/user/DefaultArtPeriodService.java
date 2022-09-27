@@ -10,13 +10,14 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @Slf4j
 public class DefaultArtPeriodService implements ArtPeriodService {
-  
+
   @Autowired
   private ArtPeriodDao artPeriodDao;
-  
+
+  @Override
   public List<Art> fetchArtByPeriod(String period){
     log.info("The fetchArtByPeriod method was called with argument: (period = {})", period);
-    
+
     return artPeriodDao.fetchArtByPeriod(period);
   }
 }

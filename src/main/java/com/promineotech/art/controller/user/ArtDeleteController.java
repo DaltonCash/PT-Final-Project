@@ -20,27 +20,27 @@ import io.swagger.v3.oas.annotations.servers.Server;
     @Server(url = "http://localhost:8080", description = "Local server.")})
 
 public interface ArtDeleteController {
-  
+
   @Operation(
       summary = "Delete an Order",
       description = "Deletes the order of a specified order_id",
       responses = {
-          @ApiResponse(responseCode = "200", 
-              description = "Order deleted successfully", 
-              content = @Content(mediaType = "application/json", 
+          @ApiResponse(responseCode = "200",
+              description = "Order deleted successfully",
+              content = @Content(mediaType = "application/json",
               schema = @Schema(implementation = Order.class))),
-          @ApiResponse(responseCode = "404", 
-            description = "Supplied order_id does not exist.", 
+          @ApiResponse(responseCode = "404",
+            description = "Supplied order_id does not exist.",
             content = @Content(mediaType = "application/json")),
-          @ApiResponse(responseCode = "500", 
-            description = "An unplanned error occurred.", 
+          @ApiResponse(responseCode = "500",
+            description = "An unplanned error occurred.",
             content = @Content(mediaType = "application/json"))
       },
       parameters = {
           @Parameter(name = "order_id",
-            required = true, 
+            required = true,
             description = "ID of Order (i.e., '1')"),
-          
+
       }
   )
   @DeleteMapping

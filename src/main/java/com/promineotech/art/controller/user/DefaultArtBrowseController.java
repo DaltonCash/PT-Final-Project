@@ -13,7 +13,7 @@ public class DefaultArtBrowseController implements ArtBrowseController {
 
   @Autowired
   private ArtBrowseService artBrowseService;
-  
+
   @Override
   public List<Art> fetchArt() {
     log.info("All art has been requested in controller");

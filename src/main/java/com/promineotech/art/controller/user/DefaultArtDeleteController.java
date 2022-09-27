@@ -15,7 +15,7 @@ public class DefaultArtDeleteController implements ArtDeleteController{
 
   @Autowired
   private ArtDeleteService artDeleteService;
-  
+
   @Override
   public Order deleteOrder(int order_id) {
     log.info("A request to delete order with order_id = {} has been made",order_id);

@@ -10,13 +10,14 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @Slf4j
 public class DefaultArtViewOrderService implements ArtViewOrderService {
-  
+
   @Autowired
   private ArtViewOrderDao artViewOrderDao;
-  
+
+  @Override
   public List<Art> fetchArtFromOrder(int order_id){
     log.info("The fetchArtFromOrder method was called with argument: (order_id = {})", order_id);
-    
+
     return artViewOrderDao.fetchArtFromOrder(order_id);
   }
 }

@@ -13,10 +13,11 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @Slf4j
 public class DefaultArtMessageService implements ArtMessageService {
-  
+
   @Autowired
   private ArtMessageDao artMessageDao;
-  
+
+  @Override
   @Transactional
   public Order changeMessage(int order_id, String message) {
     log.info("A request to change message for order_id = {} has been made with message: {}",order_id, message);
@@ -25,6 +26,6 @@ public class DefaultArtMessageService implements ArtMessageService {
     }catch(TransientDataAccessResourceException e) {
       throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No order was found with supplied order_id");
     }
-   
+
   }
 }

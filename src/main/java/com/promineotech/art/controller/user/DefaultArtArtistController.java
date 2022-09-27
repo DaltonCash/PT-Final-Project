@@ -13,7 +13,7 @@ public class DefaultArtArtistController implements ArtArtistController {
 
   @Autowired
   private ArtArtistService artArtistService;
-  
+
   @Override
   public List<Art> fetchArtByArtist(String artist) {
     log.info("Art artist = {}", artist);

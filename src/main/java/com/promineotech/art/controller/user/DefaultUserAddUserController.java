@@ -28,18 +28,18 @@ public class DefaultUserAddUserController implements UserAddUserController {
 
     if (userAddUserService.checkUserName(user_name)) {
       log.info("user_name: {} , is not currently in use.", user_name);
-      
+
       if (userAddUserService.checkEmail(email)) {
         log.info("email: {} , is not currently in use. Creating user profile...", email);
         return userAddUserService.addUser(user_name, password, first_name, last_name, email);
-        
+
       } else {
         log.info("email: {} is currently in use.", email);
         throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
             "The email entered is currently in use.");
-        
+
       }
-      
+
     } else{
       log.info("The user_name({}) entered is currently in use.", user_name);
       throw new ResponseStatusException(HttpStatus.BAD_REQUEST,

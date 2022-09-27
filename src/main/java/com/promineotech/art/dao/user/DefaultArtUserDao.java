@@ -14,28 +14,28 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @Slf4j
 public class DefaultArtUserDao implements ArtUserDao {
- 
+
   @Autowired
   private NamedParameterJdbcTemplate jdbcTemplate;
-  
+
   @Override
   public User fetchUserInfo(String user_name, String password) {
     log.info("A user is requesting to log in with credentials user_name = {} and password = {}", user_name, password);
-    
-    String sql = "" 
+
+    String sql = ""
         + "SELECT * "
         + "FROM users "
         + "WHERE user_name = :user_name "
         + "AND user_password = :user_password";
-    
+
     Map<String, Object> params = new HashMap<>();
-    
+
     params.put("user_name", user_name);
     params.put("user_password", password);
-    
+
     return jdbcTemplate.query(sql, params, new PriceResultSetExtractor());
   }
-  
+
   class PriceResultSetExtractor implements ResultSetExtractor<User> {
     @Override
     public User extractData(ResultSet rs) throws SQLException {

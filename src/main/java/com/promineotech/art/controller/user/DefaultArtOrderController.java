@@ -18,19 +18,19 @@ public class DefaultArtOrderController implements ArtOrderController {
 
   @Override
   public Order createOrder(int art_id, int user_id) {
-    
+
     log.info("An Order Request has been made for Art: art_id = {} has been requested by user_id = {}.",art_id, user_id);
     log.info("Checking to see if art_id: {} has a stock higher than 0",art_id);
-    
+
     try {
       if(artOrderService.checkStock(art_id)) {
         log.info("art_id: {} is in stock! creating order...", art_id);
-        
+
         return artOrderService.createOrder(art_id, user_id);
       }else {
         log.info("art_id: {} is out of stock.",art_id);
-        
-         throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Art is out of stock, try again later!");  
+
+         throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Art is out of stock, try again later!");
       }
     }catch(TransientDataAccessResourceException e) {
       throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Either the supplied art_id or the user_id is incorrect.");

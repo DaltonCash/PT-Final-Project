@@ -15,15 +15,15 @@ public class DefaultArtUserController implements ArtUserController {
 
   @Autowired
   private ArtUserService artUserService;
-  
+
   @Override
   public User fetchUserInfo(String user_name, String password) {
     log.info("User has requested to log in with credentials: user_name = {}, password = {}", user_name, password);
-    try{ 
+    try{
       return artUserService.fetchUserInfo(user_name, password);
     }catch(TransientDataAccessResourceException e){
       log.info("Either the username or password are incorrect");
-      throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid Credentials"); 
+      throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid Credentials");
     }
   }
 }

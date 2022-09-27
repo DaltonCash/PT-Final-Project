@@ -13,7 +13,7 @@ public class DefaultArtPeriodController implements ArtPeriodController {
 
   @Autowired
   private ArtPeriodService artPeriodService;
-  
+
   @Override
   public List<Art> fetchArtByPeriod(String period) {
     log.info("Art period = {}", period);

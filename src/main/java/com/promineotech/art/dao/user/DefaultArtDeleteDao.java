@@ -26,7 +26,7 @@ public class DefaultArtDeleteDao implements ArtDeleteDao {
   public Order deleteOrder(int order_id, Order order) {
     log.info("order with id: {}, has been requested to be removed", order_id);
     SqlParams params = insertSql(order_id);
-    
+
       KeyHolder keyHolder = new GeneratedKeyHolder();
       jdbcTemplate.update(params.sql, params.source, keyHolder);
     return Order.builder()
@@ -40,32 +40,32 @@ public class DefaultArtDeleteDao implements ArtDeleteDao {
 
   private SqlParams insertSql(int order_id) {
     SqlParams params = new SqlParams();
-    
+
     params.sql = ""
         + "DELETE FROM orders "
         + "WHERE order_id = :order_id;";
- 
+
     params.source.addValue("order_id", order_id);
-   
+
     return params;
   }
-  
+
   @Override
   public Order fetchOrder(int order_id) {
     log.info("DAO: order_id = {}", order_id);
-    
-    String sql = "" 
+
+    String sql = ""
         + "SELECT * "
         + "FROM orders "
         + "WHERE order_id = :order_id";
-    
+
     Map<String, Object> params = new HashMap<>();
     params.put("order_id", order_id);
-   
-    
+
+
     return jdbcTemplate.query(sql, params, new StockResultSetExtractor());
   }
-  
+
   class StockResultSetExtractor implements ResultSetExtractor<Order> {
     @Override
     public Order extractData(ResultSet rs) throws SQLException {
@@ -79,7 +79,7 @@ public class DefaultArtDeleteDao implements ArtDeleteDao {
           .build();
     }
   }
-  
+
   class SqlParams {
     String sql;
     MapSqlParameterSource source = new MapSqlParameterSource();

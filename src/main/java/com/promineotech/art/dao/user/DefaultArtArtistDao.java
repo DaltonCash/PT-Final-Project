@@ -19,26 +19,26 @@ public class DefaultArtArtistDao implements ArtArtistDao {
 
   @Autowired
   private NamedParameterJdbcTemplate jdbcTemplate;
-  
+
   @Override
   public List<Art> fetchArtByArtist(String artist) {
     artist = "%" + artist + "%";
     log.info("DAO: artist = {}", artist);
-    
-    String sql = "" 
+
+    String sql = ""
         + "SELECT * "
         + "FROM art "
         + "WHERE artist_name "
         + "LIKE :artist";
-    
+
     Map<String, Object> params = new HashMap<>();
     params.put("artist", artist);
-   
+
     return jdbcTemplate.query(sql, params,new RowMapper<Art>(){
 
       @Override
       public Art mapRow(ResultSet rs, int rowNum) throws SQLException {
-        
+
         return Art.builder()
             .art_id(rs.getInt("art_id"))
             .art_medium(rs.getString("art_medium"))

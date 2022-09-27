@@ -12,12 +12,12 @@ public class DefaultArtDeleteService implements ArtDeleteService {
 
   @Autowired
   private ArtDeleteDao artDeleteDao;
-  
+
   @Override
   public Order deleteOrder(int order_id) {
     log.info("Service has picked up request to delete order with order_id: {}",order_id);
     Order order = artDeleteDao.fetchOrder(order_id);
-    
+
     return artDeleteDao.deleteOrder(order_id, order);
   }
 }

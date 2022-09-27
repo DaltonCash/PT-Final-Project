@@ -6,5 +6,5 @@ import com.promineotech.art.entity.Art;
 public interface ArtBrowseDao {
 
   List<Art> fetchArt();
-  
+
 }

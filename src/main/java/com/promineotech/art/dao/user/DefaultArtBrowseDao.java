@@ -17,19 +17,19 @@ public class DefaultArtBrowseDao implements ArtBrowseDao {
 
   @Autowired
   private NamedParameterJdbcTemplate jdbcTemplate;
-  
+
   @Override
   public List<Art> fetchArt() {
-   
+
     log.info("All art has been requested in DAO Layer");
-    
-    String sql = "SELECT * FROM art"; 
-  
+
+    String sql = "SELECT * FROM art";
+
     return jdbcTemplate.query(sql, new RowMapper<Art>(){
 
       @Override
       public Art mapRow(ResultSet rs, int rowNum) throws SQLException {
-        
+
         return Art.builder()
             .art_id(rs.getInt("art_id"))
             .art_medium(rs.getString("art_medium"))

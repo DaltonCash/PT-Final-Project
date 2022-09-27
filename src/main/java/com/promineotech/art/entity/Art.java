@@ -11,14 +11,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Art {
-  
-  int art_id; 
+
+  int art_id;
   String title;
   String artist_name;
-  String art_period; 
+  String art_period;
   String art_medium;
   int creation_year;
   int art_stock;
   BigDecimal price;
- 
+
 }
