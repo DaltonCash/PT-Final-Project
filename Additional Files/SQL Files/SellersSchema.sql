@@ -1,0 +1,1 @@
+INSERT INTO sellers(seller_name, seller_password, first_name, last_name, email) VALUES("MockUser", "password123", "John", "Stanos", "jstanos@gmail.com");

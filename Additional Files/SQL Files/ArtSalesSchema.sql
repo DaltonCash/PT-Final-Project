@@ -14,6 +14,16 @@ CREATE TABLE users (
   PRIMARY KEY (user_id)
 );
 
+CREATE TABLE sellers (
+	seller_id int NOT NULL AUTO_INCREMENT,
+    seller_name varchar(40) NOT NULL,
+    seller_password varchar(20) NOT NULL,
+    first_name varchar(45) NOT NULL,
+    last_name varchar(45) NOT NULL,
+    email varchar(50) NOT NULL,
+    PRIMARY KEY (seller_id)
+    );
+
 CREATE TABLE art (
   art_id int NOT NULL AUTO_INCREMENT,
   title varchar(256) NOT NULL,
