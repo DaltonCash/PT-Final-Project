@@ -31,12 +31,12 @@ public class DefaultUserAddUserService implements UserAddUserService {
     List<User> userList = userAddUserDao.fetchUsers();
     for (User user : userList) {
       if (user.getEmail().equals(email)) {
-        log.info("Email \"{}\" is already in use.", email);
+        log.info("Email, \"{}\", is already in use.", email);
         throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
             "The email entered is currently in use.");
       }
       if (user.getUser_name().equals(user_name)) {
-        log.info("Username \"{}\" is already in use.", user_name);
+        log.info("Username, \"{}\", is already in use.", user_name);
         throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
             "The username entered is currently in use.");
       }
