@@ -27,6 +27,7 @@ public class DefaultArtViewOrderDao implements ArtViewOrderDao {
 
     String sql = ""
         + "SELECT art.art_id, "
+        + "art.seller_id, "
         + "art.title, "
         + "art.artist_name, "
         + "art.art_period, "
@@ -50,6 +51,7 @@ public class DefaultArtViewOrderDao implements ArtViewOrderDao {
 
         return Art.builder()
             .art_id(rs.getInt("art_id"))
+            .seller_id(rs.getInt("seller_id"))
             .art_medium(rs.getString("art_medium"))
             .art_period(rs.getString("art_period"))
             .art_stock(rs.getInt("art_stock"))

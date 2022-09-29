@@ -2,6 +2,7 @@ DROP TABLE IF EXISTS orders_art;
 DROP TABLE IF EXISTS orders;
 DROP TABLE IF EXISTS art;
 DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS sellers;
 
 
 CREATE TABLE users (
@@ -26,6 +27,7 @@ CREATE TABLE sellers (
 
 CREATE TABLE art (
   art_id int NOT NULL AUTO_INCREMENT,
+  seller_id int NOT NULL,
   title varchar(256) NOT NULL,
   artist_name varchar(50) NOT NULL,
   art_period varchar (100) NOT NULL,
@@ -33,7 +35,8 @@ CREATE TABLE art (
   creation_year int,
   art_stock int NOT NULL CHECK (art_stock >= 0),
   price decimal(9, 2) NOT NULL,
-  PRIMARY KEY (art_id)
+  PRIMARY KEY (art_id),
+  FOREIGN KEY (seller_id) REFERENCES sellers (seller_id) ON DELETE CASCADE
 );
 
 CREATE TABLE orders (

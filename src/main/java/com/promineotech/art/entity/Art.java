@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 public class Art {
 
   int art_id;
+  int seller_id;
   String title;
   String artist_name;
   String art_period;
