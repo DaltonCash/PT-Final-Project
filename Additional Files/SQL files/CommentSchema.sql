@@ -1,0 +1,1 @@
+insert into art_comment(art_id, user_id, message, stars) VALUES (2,1,'good stuff', 4);

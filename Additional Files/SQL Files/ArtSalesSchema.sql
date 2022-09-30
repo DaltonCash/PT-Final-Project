@@ -57,3 +57,16 @@ PRIMARY KEY (orders_art_id),
 FOREIGN KEY (art_id) REFERENCES art (art_id) ON DELETE CASCADE,
 FOREIGN KEY (order_id) REFERENCES orders(order_id) ON DELETE CASCADE
 );
+
+CREATE TABLE art_comment (
+comment_id INT NOT NULL AUTO_INCREMENT,
+art_id INT NOT NULL,
+user_id INT NOT NULL,
+post_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+message varchar(400) NOT NULL,
+likes INT NOT NULL DEFAULT 0,
+stars INT NOT NULL,
+PRIMARY KEY (comment_id),
+FOREIGN KEY (art_id) REFERENCES art (art_id) ON DELETE CASCADE,
+FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
+);
