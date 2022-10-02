@@ -6,8 +6,6 @@ import com.promineotech.art.entity.Seller;
 
 public interface ArtSellerDao {
 
-  List<Art> fetchArtBySellerId(List<Seller> seller_ids);
-
-  List<Seller> fetchSellerIdBySellerName(String seller);
+  List<Art> fetchArtBySeller(String seller);
   
 }

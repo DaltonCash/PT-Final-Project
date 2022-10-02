@@ -16,7 +16,7 @@ public class DefaultArtSellerController implements ArtSellerController {
 
   @Override
   public List<Art> fetchArtBySeller(String seller) {
-    log.info("Art seller = {}", seller);
+    log.info("Controller: The fetchArtBySeller method was called with argument: (seller = {})", seller);
         return artSellerService.fetchArtBySeller(seller);
   }
 }

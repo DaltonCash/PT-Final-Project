@@ -19,13 +19,7 @@ public class DefaultArtSellerService implements ArtSellerService {
 
   @Override
   public List<Art> fetchArtBySeller(String seller){
-    log.info("The fetchArtBySeller method was called with argument: (seller = {})", seller);
-    
-    List<Seller> seller_ids = artSellerDao.fetchSellerIdBySellerName(seller);
-    if(seller_ids.size() == 0) {
-      throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No Sellers were found with the supplied query.");
-    }
-    
-    return artSellerDao.fetchArtBySellerId(seller_ids);
+    log.info("Service: The fetchArtBySeller method was called with argument: (seller = {})", seller);
+    return artSellerDao.fetchArtBySeller(seller);
   }
 }

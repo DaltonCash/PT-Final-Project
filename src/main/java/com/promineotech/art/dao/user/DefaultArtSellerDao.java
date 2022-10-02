@@ -11,7 +11,6 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Service;
 import com.promineotech.art.entity.Art;
-import com.promineotech.art.entity.Seller;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
@@ -22,23 +21,21 @@ public class DefaultArtSellerDao implements ArtSellerDao {
   private NamedParameterJdbcTemplate jdbcTemplate;
 
   @Override
-  public List<Art> fetchArtBySellerId(List<Seller> seller_ids) {
-    log.info("DAO: seller_id = {}", seller_ids);
+  public List<Art> fetchArtBySeller(String seller) {
+    log.info("Dao: The fetchArtBySeller method was called with argument: (seller = {})", seller);
 
+    seller = '%' + seller + '%';
     String sql = ""
-        + "SELECT * "
-        + "FROM art "
-        + "WHERE seller_id "
-        + "= :seller_id0 ";
-    for(int i = 1; i < seller_ids.size(); i++) {
-      sql += "OR seller_id = :seller_id" + i;
-    }
+        + "SELECT art.art_id, art.seller_id, art.art_medium, art.art_period, "
+        + "art.art_stock, art.artist_name, art.price, art.title, art.creation_year "
+        + "FROM (art INNER JOIN sellers ON "
+        + "sellers.seller_id = art.seller_id) "
+        + "WHERE sellers.seller_name "
+        + "LIKE :seller_id ";
          
-
     Map<String, Object> params = new HashMap<>();
-    for(int i = 0; i < seller_ids.size(); i++) {
-      params.put("seller_id" + i, seller_ids.get(i).getSeller_id());
-    }
+    params.put("seller_id", seller);
+   
 
     return jdbcTemplate.query(sql, params,new RowMapper<Art>(){
 
@@ -55,33 +52,6 @@ public class DefaultArtSellerDao implements ArtSellerDao {
             .price(new BigDecimal(rs.getInt("price")))
             .title(rs.getString("title"))
             .creation_year(rs.getInt("creation_year"))
-            .build();
-      }
-    });
-  }
-
-  @Override
-  public List<Seller> fetchSellerIdBySellerName(String seller) {
-    log.info("DAO: seller = {}", seller);
-    seller = "%" + seller + "%";
-    
-
-    String sql = ""
-        + "SELECT seller_id "
-        + "FROM sellers "
-        + "WHERE seller_name "
-        + "LIKE :seller";
-
-    Map<String, Object> params = new HashMap<>();
-    params.put("seller", seller);
-
-    return jdbcTemplate.query(sql, params, new RowMapper<Seller>(){
-
-      @Override
-      public Seller mapRow(ResultSet rs, int rowNum) throws SQLException {
-
-        return Seller.builder()
-            .seller_id(rs.getInt("seller_id"))
             .build();
       }
     });
