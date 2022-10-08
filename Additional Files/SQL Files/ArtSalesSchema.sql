@@ -1,3 +1,5 @@
+DROP TABLE IF EXISTS follow;
+DROP TABLE IF EXISTS art_comment;
 DROP TABLE IF EXISTS orders_art;
 DROP TABLE IF EXISTS orders;
 DROP TABLE IF EXISTS art;
@@ -69,4 +71,13 @@ stars INT NOT NULL,
 PRIMARY KEY (comment_id),
 FOREIGN KEY (art_id) REFERENCES art (art_id) ON DELETE CASCADE,
 FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
+);
+
+CREATE TABLE follow (
+follow_id INT NOT NULL AUTO_INCREMENT,
+user_id INT NOT NULL,
+seller_id INT NOT NULL,
+FOREIGN KEY (user_id) REFERENCES users (user_id) ON DELETE CASCADE,
+FOREIGN KEY (seller_id) REFERENCES sellers (seller_id) ON DELETE CASCADE
+
 );
